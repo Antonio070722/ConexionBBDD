@@ -2,6 +2,8 @@ package app;
 
 import conexion.ConexionBBDD;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
@@ -31,6 +33,12 @@ public class Principal {
     private static void consultarConductor() {
 
         conexionBBDD.consultarBBDD("select * from CONDUCTOR");
+
+        ArrayList<Conductor> conductors = new ArrayList<>();
+
+//        try {
+//
+//        }
 
     }
 }
