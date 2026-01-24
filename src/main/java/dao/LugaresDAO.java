@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class LugaresDAO {
     public Lugar consultarLugar(int idLugar) throws SQLException {
         // Implementación del método para consultar un lugar por su ID
-        String sql = "SELECT IdLugar, site, cp, ciudad FROM LUGAR WHERE IdLugar = ?";
+        String sql = "SELECT IdLugar, site, cp, ciudad FROM LUGARES WHERE IdLugar = ?";
 
         //Uso de try-with-resources para asegurar el cierre de Connection y PreparedStatement
         try (Connection con = ConexionBBDD.getConexion();
