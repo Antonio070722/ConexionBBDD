@@ -37,10 +37,8 @@ public class Bus {
 
     @Override
     public String toString() {
-        return "Bus{" +
-                "Registro=" + Registro +
-                ", Licencia='" + Licencia + '\'' +
-                ", Tipo='" + Tipo + '\'' +
-                '}';
+        return "\n\tRegistro: " + Registro +
+                "\n\tLicencia: " + Licencia +
+                "\n\tTipo: " + Tipo;
     }
 }

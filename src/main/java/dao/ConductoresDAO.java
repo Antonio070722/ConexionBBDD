@@ -14,7 +14,7 @@ public class ConductoresDAO {
         // sin parámetros; además no devolvía ningún valor. Ahora devuelve un
         // objeto Conductor si lo encuentra o null si no existe.
 
-        String sql = "SELECT nombre, apellidos, numeroConductor FROM CONDUCTORES WHERE numeroConductor = ?";
+        String sql = "SELECT numeroConductor, nombre, apellidos FROM CONDUCTORES WHERE numeroConductor = ?";
 
         try (Connection con = ConexionBBDD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -23,11 +23,12 @@ public class ConductoresDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+                    int numero = rs.getInt("numeroConductor");
                     String nombre = rs.getString("nombre");
                     String apellidos = rs.getString("apellidos");
-                    int numero = rs.getInt("numeroConductor");
+
                     // Devolvemos un Conductor construido a partir de los datos de la BD
-                    return new Conductor(nombre, apellidos, numero);
+                    return new Conductor(numero ,nombre, apellidos);
                 } else {
                     // No se encontró el conductor
                     return null;
@@ -38,6 +39,31 @@ public class ConductoresDAO {
             // Cambio realizado: ahora capturamos la excepción y la envolvemos en RuntimeException
             // para que la capa de presentación pueda mostrar un mensaje amigable.
             throw new RuntimeException("Error al consultar conductor", e);
+        }
+    }
+
+    public static Conductor insertarConductor(Conductor conductor){
+        //En la variable sql se guarda la consulta para insertar un nuevo conductor en la base de datos
+        String sql = "INSERT INTO CONDUCTORES (numeroConductor, nombre, apellidos) VALUES (?, ?, ?)";
+
+        try(Connection con = ConexionBBDD.getConexion();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, conductor.getNumeroConductor());
+            ps.setString(2, conductor.getNombre());
+            ps.setString(3, conductor.getApellidos());
+
+            int filasInsertadas = ps.executeUpdate();
+
+            Conductor nuevoConductor = new Conductor(conductor.getNumeroConductor() ,conductor.getNombre(), conductor.getApellidos());
+
+            if (filasInsertadas == 0){
+                return null;
+            }
+            else{
+                return nuevoConductor;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

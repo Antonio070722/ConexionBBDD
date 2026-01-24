@@ -47,11 +47,9 @@ public class Lugar {
 
     @Override
     public String toString() {
-        return "Lugar{" +
-                "IdLugar=" + IdLugar +
-                ", site='" + site + '\'' +
-                ", cp='" + cp + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                '}';
+        return "\n\tIdLugar: " + IdLugar +
+                "\n\tSite: " + site +
+                "\n\tCP: " + cp +
+                "\n\tCiudad: " + ciudad;
     }
 }

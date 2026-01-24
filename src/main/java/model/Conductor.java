@@ -3,12 +3,12 @@ package model;
 public class Conductor {
     // He cambiado los atributos a private para seguir la encapsulación básica en Java
     // (has pedido un cambio sencillo, sin añadidos complejos como JavaDoc o políticas de reintentos).
+    private int numeroConductor;
     private String nombre;
     private String apellidos;
-    private int numeroConductor;
 
     // Constructor público: sigue igual en uso, ahora asigna valores a los atributos privados.
-    public Conductor(String nombre, String apellido, int numeroConductor) {
+    public Conductor(int numeroConductor ,String nombre, String apellido) {
         this.nombre = nombre;
         this.apellidos = apellido;
         this.numeroConductor = numeroConductor;
@@ -41,11 +41,9 @@ public class Conductor {
 
     @Override
     public String toString() {
-        return "Conductor{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellidos + '\'' +
-                ", numeroConductor=" + numeroConductor +
-                '}';
+        return "\n\tNumeroConductor: " + numeroConductor +
+                "\n\tNombre: " + nombre +
+                "\n\tApellidos: " + apellidos;
     }
 
     // Comentario final: cambios realizados:

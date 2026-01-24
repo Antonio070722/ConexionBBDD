@@ -44,7 +44,7 @@ public class Principal {
                     System.out.println("Saliendo...");
                     break;
                 case 1:
-                    System.out.println("Dime el numero de conductor a consultar.");
+                    System.out.println("Introduce el numero de conductor a consultar.");
                     // Cambio realizado: validamos la entrada antes de leer
                     if (!sc.hasNextInt()) {
                         System.out.println("Introduce un número de conductor válido.");
@@ -65,6 +65,32 @@ public class Principal {
                     }
                     break;
                 case 2:
+                    System.out.println("Introduce primero el número de conductor a insertar: ");
+                    if (!sc.hasNextInt()) {
+                        System.out.println("Introduce un número de conductor válido.");
+                        sc.next();
+                        break;
+                    }
+                    int idConductor = sc.nextInt();
+                    //Añadido sc.nextLine() para que no salte el siguiente input
+                    sc.nextLine();
+                    System.out.println("Introduce el nombre del conductor: ");
+                    String nombre = sc.nextLine();
+                    System.out.println("Introduce los apellidos del conductor: ");
+                    String apellidos = sc.nextLine();
+                    Conductor nuevoConductor = new Conductor(idConductor ,nombre, apellidos);
+                    try {
+                        Conductor creado = ConductoresDAO.insertarConductor(nuevoConductor);
+                    }catch (Exception e) {
+                        System.out.println("Error al insertar el conductor: " + e.getMessage());
+                        break;
+                    }
+                    Conductor creado = ConductoresDAO.insertarConductor(nuevoConductor);
+                    if (creado != null) {
+                        System.out.println("Conductor insertado correctamente: " + creado);
+                    } else {
+                        System.out.println("Error al insertar el conductor.");
+                    }
 
                     break;
                 case 3:
