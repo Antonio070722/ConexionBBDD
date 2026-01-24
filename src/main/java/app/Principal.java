@@ -23,8 +23,8 @@ public class Principal {
 
         int op = 0;
         Scanner sc = new Scanner(System.in);
+        System.out.println("----Bienvenido al sistema de AUCORSA----");
         do {
-            System.out.println("Bienvenido al sistema de AUCORSA.");
             System.out.println("¿Qué desea hacer?");
             System.out.println("\t0. Salir.");
             System.out.println("\t1. Consultar conductores.");

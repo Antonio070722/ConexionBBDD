@@ -14,7 +14,7 @@ public class ConductoresDAO {
         // sin parámetros; además no devolvía ningún valor. Ahora devuelve un
         // objeto Conductor si lo encuentra o null si no existe.
 
-        String sql = "SELECT nombre, apellidos, numeroConductor FROM CONDUCTOR WHERE numeroConductor = ?";
+        String sql = "SELECT nombre, apellidos, numeroConductor FROM CONDUCTORES WHERE numeroConductor = ?";
 
         try (Connection con = ConexionBBDD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
