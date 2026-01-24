@@ -82,7 +82,6 @@ public class Principal {
 
                     //Declaro Conductor creado fuera del bloque try-catch para evitar errores
                     Conductor creado = null;
-
                     try {
                         creado = ConductoresDAO.insertarConductor(nuevoConductor);
                     }catch (Exception e) {
