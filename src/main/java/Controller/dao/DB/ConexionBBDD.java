@@ -1,4 +1,4 @@
-package DB;
+package Controller.dao.DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ public class ConexionBBDD {
     // Ajusta estas constantes según tu base de datos local (usuario/contraseña/URL):
     public static final String USER = "root";
     public static final String PASSWORD = "1234";
-    public static final String URL = "jdbc:mysql://127.0.0.1:3306/aucorsa";
+    public static final String URL = "jdbc:mysql://127.0.0.1:3306/AUCORSA";
 
     // Método centralizado para obtener una conexión JDBC.
     // Nota para estudiantes: este método lanza SQLException si falla la conexión.

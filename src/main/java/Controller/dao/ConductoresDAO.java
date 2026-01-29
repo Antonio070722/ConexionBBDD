@@ -1,6 +1,6 @@
-package dao;
+package Controller.dao;
 
-import DB.ConexionBBDD;
+import Controller.dao.DB.ConexionBBDD;
 import model.Conductor;
 
 import java.sql.*;
@@ -25,7 +25,7 @@ public class ConductoresDAO {
         return false;
     }
 
-    public Conductor consultarConductor(int numDriver){
+    public static Conductor consultarConductor(int numDriver){
 
         // Cambio realizado: Se implementa correctamente la consulta parametrizada
         // usando PreparedStatement y try-with-resources. Antes el método intentaba

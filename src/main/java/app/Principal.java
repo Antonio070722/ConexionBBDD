@@ -1,17 +1,84 @@
 package app;
 
-import dao.BusesDAO;
-import dao.ConductoresDAO;
+import Controller.dao.BusesDAO;
+import Controller.dao.ConductoresDAO;
 import model.Bus;
 import model.Conductor;
 
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
 
-    // Cambio realizado: firma estándar para ejecutar la aplicación desde el IDE o mvn exec
     public static void main(String[] args) {
+        //PRUEBA DE CLASE JFRAME, esto debe ir en un clase dentro de view
+        //Esto de deberá ir en cada clase dentro de view, sin declarar nuevo JFrame, solo usando extends JFrame al
+        //declarar la clase
+        JFrame miVentana = new JFrame("Mi primera ventana");
+        miVentana.setTitle("Aucorsa");
+        //setSize y setBounds se puede usar uno u otro dependiendo del objetivo
+        //miVentana.setSize(600, 600);
+        miVentana.setBounds(200, 200, 800, 800);
+        miVentana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panelPrincipal = new JPanel();
+        JLabel JnumConductor = new JLabel("Num conductores:");
+        JTextField txtnumconductor = new JTextField(8);
+        JButton btnBuscar = new JButton("Buscar");
+        JLabel mostrarResultado = new JLabel();
+        mostrarResultado.setText("Cargando...");
+
+        txtnumconductor.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                //System.out.println("Escribiendo...");
+                if (e.getKeyChar() == 'Q') {
+                    System.out.println("Vas a salir");
+                    System.exit(0);
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+        txtnumconductor.addActionListener(e -> {
+        });
+
+        btnBuscar.addActionListener(e -> {
+            String numConductor =  txtnumconductor.getText();
+            //JOptionPane.showMessageDialog(null, "Numero de conductor: " + numConductor);
+            int resultado = JOptionPane.showConfirmDialog(null, "Estas seguro de quieres guardar?");
+            switch (resultado) {
+                case 0 -> {
+                    ConductoresDAO.consultarConductor(Integer.parseInt(numConductor));
+                }
+                case 1 -> {}
+            }
+                }
+        );
+
+        panelPrincipal.add(JnumConductor);
+        panelPrincipal.add(txtnumconductor);
+        panelPrincipal.add(btnBuscar);
+        panelPrincipal.add(mostrarResultado);
+
+        miVentana.add(panelPrincipal);
+        miVentana.setVisible(true);
+
+
+
+
         ArrayList<Conductor> conductores = new ArrayList<>();
         ArrayList<Bus> buses = new ArrayList<>();
         ConductoresDAO driverDAO = new ConductoresDAO();
