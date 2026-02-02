@@ -1,20 +1,22 @@
 package app;
 
+import Controller.DriverController;
 import Controller.dao.BusesDAO;
 import Controller.dao.ConductoresDAO;
-import com.google.protobuf.StringValue;
 import model.Bus;
 import model.Conductor;
+import view.DriverView;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
 
     public static void main(String[] args) {
+//
+//        DriverView vistaConductor = new DriverView();
+//        DriverController controladorConductor = new DriverController(vistaConductor);
+
         //PRUEBA DE CLASE JFRAME, esto debe ir en un clase dentro de view
         //Esto de deberá ir en cada clase dentro de view, sin declarar nuevo JFrame, solo usando extends JFrame al
         //declarar la clase
@@ -94,6 +96,7 @@ public class Principal {
             System.out.println("\t2. Insertar conductores.");
             System.out.println("\t3. Eliminar conductor.");
             System.out.println("\t4. Consultar autobus.");
+            System.out.println("\t5. Insertar autobus.");
 
             // Cambio realizado: validamos que el usuario introduzca un entero
             if (!sc.hasNextInt()) {
@@ -199,7 +202,20 @@ public class Principal {
                     break;
 
                 case 5:
-
+                    System.out.println("Introduce el número de registro del autobus a registrar: ");
+                    String registroNewBus =  sc.nextLine();
+                    String tipoNewBus = "";
+                    boolean tipovalido=false;
+                    do {
+                        System.out.println("Introduce el tipo de autobus (Urbano, Interurbano, Turismo o Escolar): ");
+                        tipoNewBus = sc.nextLine();
+                        if(!tipoNewBus.equalsIgnoreCase("Urbano")&&
+                                !tipoNewBus.equalsIgnoreCase("Interurbano")&&
+                                !tipoNewBus.equalsIgnoreCase("Turismo")&&
+                                !tipoNewBus.equalsIgnoreCase("Escolar")) {
+                            return
+                        }
+                    }while();
                     break;
 
                 default:

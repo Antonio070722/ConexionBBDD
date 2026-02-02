@@ -1,6 +1,6 @@
 package Controller.dao;
 
-import Controller.dao.DB.ConexionBBDD;
+import Controller.DB.ConexionBBDD;
 import model.Lugar;
 
 import java.sql.Connection;

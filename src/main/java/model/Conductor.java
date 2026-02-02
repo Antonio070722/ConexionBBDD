@@ -14,6 +14,9 @@ public class Conductor {
         this.numeroConductor = numeroConductor;
     }
 
+    //Constructor vacio
+    public Conductor() {}
+
     // Getters y setters: permanecen para permitir el acceso y la modificación de los atributos privados.
     public String getNombre() {
         return nombre;

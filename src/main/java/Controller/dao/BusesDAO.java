@@ -1,6 +1,6 @@
 package Controller.dao;
 
-import Controller.dao.DB.ConexionBBDD;
+import Controller.DB.ConexionBBDD;
 import model.Bus;
 
 import java.sql.Connection;
@@ -33,4 +33,9 @@ public class BusesDAO {
             throw new RuntimeException("Error al consultar bus"+ e);
         }
     }
+
+    public static Bus insertarBus(Bus bus){
+
+    }
+
 }
