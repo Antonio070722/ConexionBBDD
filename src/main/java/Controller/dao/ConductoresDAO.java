@@ -7,6 +7,12 @@ import java.sql.*;
 
 public class ConductoresDAO {
 
+    /**
+     * Método para borrar un conductor de la base de datos dado su número de conductor. Si la eliminación es exitosa, devuelve true;
+     * si no se encuentra el conductor o ocurre un error, devuelve false.
+     * @param idConductorBorrar Número de conductor que se desea eliminar de la base de datos.
+     * @return
+     */
     public static boolean borrarConductor(int idConductorBorrar) {
         String sql = "DELETE FROM CONDUCTORES WHERE numeroConductor = ?";
 
@@ -25,6 +31,12 @@ public class ConductoresDAO {
         return false;
     }
 
+    /**
+     * Método para consultar un conductor en la base de datos dado su número de conductor. Si se encuentra el conductor,
+     * devuelve un objeto Conductor con sus datos; si no se encuentra o ocurre un error, devuelve null.
+     * @param numDriver Número de conductor que se desea consultar en la base de datos.
+     * @return
+     */
     public static Conductor consultarConductor(int numDriver){
 
         // Cambio realizado: Se implementa correctamente la consulta parametrizada
@@ -61,6 +73,12 @@ public class ConductoresDAO {
         }
     }
 
+    /**
+     * Método para insertar un nuevo conductor en la base de datos. Recibe un objeto Conductor con los datos a insertar.
+     * Si la inserción es exitosa, devuelve un nuevo objeto Conductor con los datos insertados; si ocurre un error, devuelve null.
+     * @param conductor Objeto Conductor que contiene los datos del nuevo conductor a insertar en la base de datos.
+     * @return
+     */
     public static Conductor insertarConductor(Conductor conductor){
         //En la variable sql se guarda la consulta para insertar un nuevo conductor en la base de datos
         String sql = "INSERT INTO CONDUCTORES (numeroConductor, nombre, apellidos) VALUES (?, ?, ?)";
