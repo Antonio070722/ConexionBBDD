@@ -9,6 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BDPDAO {
+    /**
+     * Inserta una nueva ruta en la tabla BDP.
+     * El método recibe un objeto BDP con los datos de la ruta a insertar. Si la inserción es exitosa, devuelve el mismo objeto;
+     * si ocurre un error durante la inserción, devuelve null.
+     * @param rutaAInsertar
+     * @return
+     */
     public static BDP insertarRuta(BDP rutaAInsertar){
         String sql = "INSERT INTO BDP (Registro, numConductor, IdLugar, day_of_week) VALUES (?,?,?,?)";
         try(Connection con = ConexionBBDD.getConexion();
@@ -32,6 +39,15 @@ public class BDPDAO {
         }
     }
 
+    /**
+     * Elimina una ruta de la tabla BDP según el número de conductor, el ID del lugar y el registro.
+     * El método recibe el número de conductor, el ID del lugar y el registro de la ruta a eliminar. Si la eliminación es
+     * exitosa, devuelve treu; si no se encuentra la ruta o ocurre un error durante la eliminación, devuelve false
+     * @param numConductor Numero de conductor de la ruta a eliminar introducido por el usuario.
+     * @param idLugar ID del lugar de la ruta a eliminar introducido por el usuario.
+     * @param registro Registro de la ruta a eliminar introducido por el usuario.
+     * @return
+     */
     public static boolean borrarRuta(int numConductor, int idLugar, String registro){
         String sql = "DELETE FROM BDP WHERE numConductor = ? AND IdLugar = ? AND Registro = ?";
 
@@ -55,6 +71,12 @@ public class BDPDAO {
         }
     }
 
+    /**
+     * Consulta el día de la semana asociado a una ciudad específica en la tabla BDP. El método recibe el nombre de la ciudad
+     * y devuelve el día de la semana correspondiente. Si no se encuentra la ciudad o ocurre un error durante la consulta, devuelve null.
+     * @param ciudadParaConsultDia Nombre de la ciaudad que ha introducido el usuario para consultar el día de la semana asociado a esa ciudad.
+     * @return
+     */
     public static String consultarDiaSemanaPorCiudad(String ciudadParaConsultDia){
         String sql = "SELECT b.day_of_week FROM BDP b JOIN Lugares l ON b.IdLugar = l.IdLugar WHERE l.ciudad = ?";
 
@@ -76,6 +98,13 @@ public class BDPDAO {
 
     }
 
+    /**
+     * Modifica el registro de una ruta en la tabla BDP según el día de la semana. El método recibe el día de la semana y el nuevo registro a actualizar.
+     * Si la actualización es exitosa, devuelve true; si no se encuentra la ruta o ocurre un error durante la actualización, devuelve false.
+     * @param diaSemana Día de la semana de la ruta a modificar introducido por el usuario.
+     * @param registro Nuevo registro de la ruta a modificar introducido por el usuario.
+     * @return
+     */
     public static boolean modificarRegistroBDP(String diaSemana, String registro){
         String sql = "UPDATE BDP SET Registro = ? WHERE day_of_week = ?;";
 
@@ -98,6 +127,14 @@ public class BDPDAO {
         }
     }
 
+    /**
+     * Método similar al anterior pero para modificar el número de conductor de una ruta en la tabla BDP según el día de la semana.
+     * El método recibe el día de la semana y el nuevo número de conductor a actualizar. Si la actualización es exitosa,
+     * devuelve true; si no se encuentra la ruta o ocurre un error durante la actualización, devuelve false.
+     * @param diaSemana Día de la semana de la ruta a modificar introducido por el usuario.
+     * @param numConductor Nuevo número de conductor de la ruta a modificar introducido por el usuario.
+     * @return
+     */
     public static boolean modificarNumConductorBDP(String diaSemana, int numConductor){
         String sql = "UPDATE BDP SET numConductor = ? WHERE day_of_week = ?;";
 
@@ -120,6 +157,12 @@ public class BDPDAO {
         }
     }
 
+    /**
+     * Método similar a los anteriores pero para modificar el ID del lugar de una ruta en la tabla BDP según el día de la semana.
+     * @param diaSemana Día de la semana de la ruta a modificar introducido por el usuario.
+     * @param IdLugar Nuevo ID del lugar de la ruta a modificar introducido por el usuario.
+     * @return
+     */
     public static boolean modificarIdLugarBDP(String diaSemana, int IdLugar){
         String sql = "UPDATE BDP SET IdLugar = ? WHERE day_of_week = ?;";
 
