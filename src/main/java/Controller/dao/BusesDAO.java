@@ -34,8 +34,48 @@ public class BusesDAO {
         }
     }
 
-    public static Bus insertarBus(Bus bus){
+    public static Bus insertarBus(Bus businsert){
+        String sql = "INSERT INTO BUSES (Registro, Tipo, Licencia) VALUES (?,?,?)";
+        try(Connection con  = ConexionBBDD.getConexion();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, businsert.getRegistro());
+            ps.setString(2, businsert.getTipo());
+            ps.setString(3, businsert.getLicencia());
 
+            int filasInsertadas = ps.executeUpdate();
+            Bus businsertado = new Bus(businsert.getRegistro(), businsert.getTipo(), businsert.getLicencia());
+
+            if(filasInsertadas == 0){
+                return null;
+            }else {
+                return businsertado;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al insertar el bus: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static boolean borrarBus(String registro){
+        String sql = "DELETE FROM BUSES WHERE Registro = ?";
+
+        try(Connection con = ConexionBBDD.getConexion();
+        PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, registro);
+
+            int filasBorradas = ps.executeUpdate();
+
+            if(filasBorradas == 0){
+                return false;
+            }else  {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al borrar el bus: " + e.getMessage());
+            return false;
+        }
     }
 
 }

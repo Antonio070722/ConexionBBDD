@@ -1,6 +1,5 @@
 package app;
 
-import Controller.DriverController;
 import Controller.dao.BusesDAO;
 import Controller.dao.ConductoresDAO;
 import model.Bus;
@@ -13,74 +12,6 @@ import java.util.Scanner;
 public class Principal {
 
     public static void main(String[] args) {
-//
-//        DriverView vistaConductor = new DriverView();
-//        DriverController controladorConductor = new DriverController(vistaConductor);
-
-        //PRUEBA DE CLASE JFRAME, esto debe ir en un clase dentro de view
-        //Esto de deberá ir en cada clase dentro de view, sin declarar nuevo JFrame, solo usando extends JFrame al
-        //declarar la clase
-//        JFrame miVentana = new JFrame("Mi primera ventana");
-//        miVentana.setTitle("Aucorsa");
-//        //setSize y setBounds se puede usar uno u otro dependiendo del objetivo
-//        //miVentana.setSize(600, 600);
-//        miVentana.setBounds(200, 200, 800, 800);
-//        miVentana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        JPanel panelPrincipal = new JPanel();
-//        JLabel JnumConductor = new JLabel("Num conductores:");
-//        JTextField txtnumconductor = new JTextField(8);
-//        JButton btnBuscar = new JButton("Buscar");
-//        JLabel mostrarResultado = new JLabel();
-//        mostrarResultado.setText("Cargando...");
-//
-//        txtnumconductor.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                //System.out.println("Escribiendo...");
-//                if (e.getKeyChar() == 'Q') {
-//                    System.out.println("Vas a salir");
-//                    System.exit(0);
-//                }
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//
-//            }
-//        });
-//
-//        txtnumconductor.addActionListener(e -> {
-//        });
-//
-//        btnBuscar.addActionListener(e -> {
-//            String numConductor =  txtnumconductor.getText();
-//            //JOptionPane.showMessageDialog(null, "Numero de conductor: " + numConductor);
-//            int resultado = JOptionPane.showConfirmDialog(null, "Estas seguro de quieres guardar?");
-//            switch (resultado) {
-//                case 0 -> {
-//                    ConductoresDAO.consultarConductor(Integer.parseInt(numConductor));
-//                }
-//                case 1 -> {}
-//            }
-//                }
-//        );
-//
-//        panelPrincipal.add(JnumConductor);
-//        panelPrincipal.add(txtnumconductor);
-//        panelPrincipal.add(btnBuscar);
-//        panelPrincipal.add(mostrarResultado);
-//
-//        miVentana.add(panelPrincipal);
-//        miVentana.setVisible(true);
-
-
-
 
         ArrayList<Conductor> conductores = new ArrayList<>();
         ArrayList<Bus> buses = new ArrayList<>();
@@ -97,14 +28,15 @@ public class Principal {
             System.out.println("\t3. Eliminar conductor.");
             System.out.println("\t4. Consultar autobus.");
             System.out.println("\t5. Insertar autobus.");
+            System.out.println("\t6. Eliminar autobus.");
 
+            System.out.print("Introduce tu opción: ");
             // Cambio realizado: validamos que el usuario introduzca un entero
             if (!sc.hasNextInt()) {
                 System.out.println("Introduce una opción válida (número).");
                 sc.next(); // descartamos el token inválido
                 continue;
             }
-
             op = sc.nextInt();
             switch (op) {
                 case 0:
@@ -202,22 +134,62 @@ public class Principal {
                     break;
 
                 case 5:
+                    sc.nextLine();
                     System.out.println("Introduce el número de registro del autobus a registrar: ");
                     String registroNewBus =  sc.nextLine();
+
                     String tipoNewBus = "";
                     boolean tipovalido=false;
                     do {
-                        System.out.println("Introduce el tipo de autobus (Urbano, Interurbano, Turismo o Escolar): ");
+                        System.out.println("Introduce un tipo de autobus válido (Urbano, Interurbano, Turismo o Escolar): ");
                         tipoNewBus = sc.nextLine();
-                        if(!tipoNewBus.equalsIgnoreCase("Urbano")&&
-                                !tipoNewBus.equalsIgnoreCase("Interurbano")&&
-                                !tipoNewBus.equalsIgnoreCase("Turismo")&&
-                                !tipoNewBus.equalsIgnoreCase("Escolar")) {
-                            return
+                        if(tipoNewBus.equalsIgnoreCase("Urbano") ||
+                                tipoNewBus.equalsIgnoreCase("Interurbano") ||
+                                tipoNewBus.equalsIgnoreCase("Turismo") ||
+                                tipoNewBus.equalsIgnoreCase("Escolar")) {
+                            tipovalido=true;
                         }
-                    }while();
-                    break;
+                    }while(!tipovalido);
 
+                    System.out.println("Introduce la licencia del autobus: ");
+                    String licenciaNewBus = sc.next();
+
+                    Bus nuevosBusInsert = new Bus(registroNewBus, tipoNewBus, licenciaNewBus);
+
+                        Bus busInsertado = null;
+                        try{
+                            busInsertado = BusesDAO.insertarBus(nuevosBusInsert);
+                        } catch (Exception e) {
+                            System.out.println("Error al insertar el autobus: " + e.getMessage());
+                            break;
+                        }
+
+                        if (busInsertado != null) {
+                            System.out.println("Autobus insertado correctamente: " + busInsertado);
+                        } else{
+                            System.out.println("Error al insertar el autobus.");
+                        }
+
+                    break;
+                case 6:
+                    sc.nextLine();
+                    System.out.println("Introduce el número de registro del autobus a eliminar: ");
+                    String registroBusBorrar = sc.nextLine();
+
+                    boolean busBorrado = false;
+                    try {
+                        busBorrado = BusesDAO.borrarBus(registroBusBorrar);
+                    } catch (Exception e) {
+                        System.out.println("Error: Autobus no borrado: "+ e.getMessage());
+                    }
+
+                    if (busBorrado) {
+                        System.out.println("Autobus borrado correctamente.");
+                    } else {
+                        System.out.println("AUTOBUS NO ELIMINADO: no se ha encontrado un autobus con el número de registro: "+registroBusBorrar);
+                    }
+
+                    break;
                 default:
                     System.out.println("Introduce una opción válida.");
                     break;
