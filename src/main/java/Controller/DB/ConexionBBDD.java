@@ -8,17 +8,21 @@ import java.sql.ResultSet;
 
 public class ConexionBBDD {
 
-    // Cambios realizados: añadido comentario instructivo, se mantiene el método
-    // getConexion() que devuelve una Connection usando DriverManager.
+    /**
+     * En los atributos de la clase se define la URL de la base de datos, el usuario y la contraseña.
+     */
 
     // Ajusta estas constantes según tu base de datos local (usuario/contraseña/URL):
     public static final String USER = "root";
     public static final String PASSWORD = "1234";
     public static final String URL = "jdbc:mysql://127.0.0.1:3306/AUCORSA";
 
-    // Método centralizado para obtener una conexión JDBC.
-    // Nota para estudiantes: este método lanza SQLException si falla la conexión.
-    // Usa: Connection con = ConexionBBDD.getConexion(); y preferiblemente try-with-resources.
+    /**
+     *  GetConnection: Método para obtener una conexión a la base de datos, se usa para no repetir código en
+     *  cada clase que necesite acceder a la base de datos.
+     * @return
+     * @throws SQLException
+     */
     public static Connection getConexion() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
